@@ -1,0 +1,384 @@
+/* =========================
+ * Layout
+ * =======================*/
+
+.focus-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 0 24px; /* 항상 좌우 24px 여백 유지 */
+    box-sizing: border-box;
+}
+
+.focus-content {
+    max-width: 1120px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px;
+    margin-top: 40px;
+    margin-bottom: 73px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-start;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.focus-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 제목 래퍼 */
+.focus-header-title {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.focus-content-button {
+    display: flex;
+    gap: 16px;
+    flex-shrink: 0; /* 너무 줄어들지 않게 */
+}
+
+.focus-header-title h2 {
+    color: #414141;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.focus-total-point {
+    color: var(--gray-gray_818181, #818181);
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 16px 0 8px 0;
+}
+
+.focus-today {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 24px;
+    padding: 40px 24px;
+    height: 546px;
+    border-radius: 20px;
+    border: 1px solid var(--gray-gray_DDDDDD, #ddd);
+    background: #fff;
+}
+
+.focus-today h2 {
+    color: var(--black-black_414141, #414141);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.focus-box {
+    width: 100%;
+}
+
+/* =========================
+ * Timer 영역
+ * =======================*/
+
+.focus-timmer-wrap {
+    border: none;
+    padding: 20px;
+    margin: 100px auto 74px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.focus-timer-edit-btn {
+    width: 80px;
+    height: 35px;
+    border-radius: 15px;
+    border: 1px solid #dddddd;
+    background-color: #dddddd;
+    color: #818181;
+    cursor: pointer;
+    align-self: end;
+}
+
+.focus-timer-edit-btn--hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* 기본 타이머 글자 */
+.focus-timmer {
+    color: var(--black-black_414141, #414141);
+    text-align: center;
+    font-size: 150px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    line-height: 1;
+}
+
+/* 10초 이하 빨간색 */
+.focus-timmer--danger {
+    color: #ff3b30;
+}
+
+/* finished 상태 */
+.focus-timmer--finished {
+    color: #b9b9b9;
+}
+
+/* 음수 표시용(필요시) */
+.focus-timmer-sign {
+    font: inherit;
+}
+
+/* 분 숫자(span) – 인풋과 폭 맞추기 */
+.focus-timmer-min {
+    display: inline-block;
+    width: 3ch;
+    text-align: right;
+    vertical-align: middle;
+    line-height: 1em;
+    height: 1em;
+}
+
+/* 분 인풋 – span이랑 최대한 똑같이 */
+.focus-timmer-input {
+    display: inline-block;
+    width: 3ch;
+    text-align: right;
+    vertical-align: middle;
+    line-height: 1em;
+    height: 1em;
+    font: inherit;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Chrome, Safari, Edge */
+.focus-timmer-input::-webkit-inner-spin-button,
+.focus-timmer-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.focus-timmer-input {
+    -moz-appearance: textfield;
+}
+
+/* 초 인풋 - text-align: left */
+.focus-timmer-input-sec {
+    text-align: left;
+}
+
+/* 콜론, 초 스타일 */
+.focus-timmer-colon,
+.focus-timmer-sec {
+    font: inherit;
+}
+
+.focus-timmer-sec {
+    width: 3ch;
+    text-align: left;
+    vertical-align: middle;
+    line-height: 1em;
+    height: 1em;
+}
+
+/* =========================
+ * Timer 버튼 영역
+ * =======================*/
+.timer-button-box {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+}
+
+.focus-start-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+/* =========================
+ * Toast
+ * =======================*/
+
+/* Toast 공통 위치 */
+.focus-toast-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+/* 포인트 Toast */
+.focus-toast {
+    padding: 10px 24px;
+    border-radius: 20px;
+    background: #e3f3dd;
+    color: #414141;
+    font-size: 16px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Pause Toast */
+.focus-toast-pause {
+    padding: 10px 24px;
+    border-radius: 20px;
+    background: #fde9e9;
+    color: #d14747;
+    font-size: 16px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+ * 미디어쿼리
+ * =======================*/
+
+/* 774px 이하 - 태블릿 */
+@media (max-width: 774px) {
+    .focus-container {
+        padding: 0 24px;
+    }
+
+    .focus-content {
+        padding: 24px;
+    }
+
+    .focus-header-title h2 {
+        font-size: 32px;
+    }
+
+    /* 태블릿 구간: 제목 왼쪽 / 버튼 오른쪽 한 줄 */
+    .focus-content-button {
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    .focus-today {
+        height: auto;
+        padding: 32px 16px 80px;
+    }
+
+    .focus-timmer-wrap {
+        width: 100%;
+        padding: 12px 0;
+        margin: 60px auto 40px;
+    }
+
+    .focus-timmer {
+        font-size: 120px;
+    }
+
+    .timer-button-box {
+        bottom: 24px;
+    }
+
+    .focus-start-button {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 630px) {
+    /* 모바일: 제목 위 / 버튼 아래 세로 정렬 */
+    .focus-content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .focus-timmer {
+        font-size: 90px;
+    }
+}
+
+/* 375px 이하 - 모바일 */
+@media (max-width: 375px) {
+    .focus-container {
+        padding: 0 16px;
+    }
+
+    .focus-content {
+        padding: 16px;
+    }
+
+    .focus-header-title h2 {
+        font-size: 24px;
+    }
+
+    .focus-total-point {
+        font-size: 14px;
+    }
+
+    .focus-today {
+        padding: 24px 12px 72px;
+        border-radius: 16px;
+    }
+
+    .focus-today h2 {
+        font-size: 20px;
+    }
+
+    .focus-timmer-wrap {
+        margin: 48px auto 32px;
+    }
+
+    .focus-timmer {
+        font-size: 72px;
+    }
+
+    .focus-start-button {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .focus-toast {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .focus-toast-pause {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    /* 모바일에서 버튼은 줄 바꿈 가능 + 가로 100% */
+    .focus-content-button {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        row-gap: 8px;
+    }
+}

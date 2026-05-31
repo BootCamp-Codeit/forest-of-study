@@ -1,0 +1,147 @@
+.study-main-container {
+    width: 100%;
+    max-width: 648px;
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+.study-section {
+    width: 100%;
+    padding: 24px 24px 40px;
+    border-radius: 20px;
+    background-color: #fff;
+    margin-bottom: 57px;
+}
+
+.bg-color-box {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.bg-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.bg-item {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 정사각형 유지 */
+    border: none;
+    padding: 0;
+    background: transparent;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.bg-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 영역 안에 딱 맞게 */
+    display: block;
+}
+
+.bg-item--selected {
+    outline: 3px solid #8cc4ff; /* 선택 시 표시 */
+    border-radius: 16px;
+    outline-offset: 0;
+}
+
+.bg-item--selected::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.bg-item--selected::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background-image: url("/src/assets/Img/paw.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.study-header-title {
+    color: #414141;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.study-form p {
+    color: var(--black-black_414141, #414141);
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 16px 0 8px;
+}
+
+.select-background {
+    margin-bottom: 24px !important;
+}
+
+.error-text {
+    color: var(--red-error_C41013, #c41013) !important;
+    font-family: Pretendard !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    margin-top: 8px !important;
+}
+
+.study-form .input-error-message {
+    color: #c41013;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.study-make-button {
+    margin-top: 40px;
+}
+
+.study-root-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 24px;
+    margin-bottom: 3rem;
+}
+@media (max-width: 744px) {
+    .study-root-container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    .bg-list {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .study-root-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

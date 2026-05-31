@@ -1,0 +1,68 @@
+/* 공통 pill (레이아웃만, 배경 없음) */
+.emoji-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    height: 32px;
+
+    background: transparent;
+    color: inherit;
+}
+
+/* =========================
+   normal (이모지 버튼) 
+   ========================= */
+.emoji-button--normal {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+.emoji-normal-icon {
+    font-size: 16px;
+}
+
+.emoji-normal-count {
+    font-size: 16px;
+}
+
+/* =========================
+   more (더보기 버튼) 
+   ========================= */
+.emoji-button--more {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+}
+
+.emoji-more-label {
+    font-size: 16px;
+}
+
+/* =========================
+   add (이모지 추가 버튼) 
+   ========================= */
+.emoji-button--add {
+    background-color: none;
+    border: 1px solid #e5e7eb;
+    color: #ffffff;
+}
+
+/* 아이콘/텍스트 스타일 */
+.emoji-add-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.emoji-add-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+}
+
+/* (옵션) 활성화 상태 공통 */
+.emoji-button--active {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+}

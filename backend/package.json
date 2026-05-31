@@ -1,0 +1,51 @@
+{
+  "name": "beginner-project-be",
+  "version": "1.0.0",
+  "description": "초급 프로젝트 : 공부의 숲 저장소입니다.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "db:reset": "prisma db push --force-reset && prisma db seed"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeit-FS-10th/beginner-project-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeit-FS-10th/beginner-project-BE/issues"
+  },
+  "homepage": "https://github.com/codeit-FS-10th/beginner-project-BE#readme",
+  "dependencies": {
+    "@logtail/node": "^0.5.6",
+    "@logtail/winston": "^0.5.6",
+    "@prisma/client": "^6.19.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.19",
+    "dayjs-plugin-utc": "^0.1.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.15.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "prisma": "^6.19.0"
+  }
+}

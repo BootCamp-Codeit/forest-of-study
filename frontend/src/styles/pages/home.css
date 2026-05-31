@@ -1,0 +1,243 @@
+.root-container {
+    display: flex;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    min-width: 344px;
+}
+
+.main-container {
+    max-width: 1200px;
+    width: 100%;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.recent-container,
+.study-container {
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.study-container {
+    margin-bottom: 174px;
+}
+.recent-container {
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    color: #414141;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.recent-container h2 {
+    margin-bottom: 30px;
+}
+
+.recent-list {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.recent-list > * {
+    min-width: 297px;
+}
+
+.study-controls {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 0;
+    align-items: center;
+}
+
+.study-search {
+    width: 260px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid #e2e2e2;
+    font-size: 14px;
+}
+
+.study-sort {
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid #e2e2e2;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.study-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    box-sizing: border-box;
+    gap: 24px;
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.study-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 335px;
+    width: 100%;
+    height: 42px;
+    padding: 0;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.study-search-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.study-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 12px 20px 12px 0;
+    font-size: 14px;
+    color: #414141;
+}
+
+.study-search-input::placeholder {
+    color: #818181;
+}
+
+.recent-empty-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center; /* 세로 중앙 */
+}
+
+.recent-empty-wrapper {
+    padding: 100px;
+}
+.recent-title {
+    text-align: center;
+    color: var(--gray-gray_818181, #818181);
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.Home-notfound-study {
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+}
+@media (max-width: 1024px) {
+    .study-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 744px) {
+    .recent-container,
+    .study-container {
+        padding: 24px;
+    }
+
+    .recent-container {
+        height: auto; /* 높이 고정 제거 */
+        overflow: hidden;
+    }
+
+    .recent-list {
+        gap: 16px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .study-search {
+        width: 100%;
+    }
+
+    .study-sort {
+        width: 160px;
+    }
+    .study-container {
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 16px;
+    }
+    .study-search-wrapper {
+        max-width: 100%;
+    }
+    .study-controls {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-end;
+    }
+    .root-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .recent-list > .card {
+        flex: 1;
+        min-width: 240px;
+        padding: 16px;
+        height: 180px;
+    }
+
+    /* .study-list .card--lg {
+        padding: 16px;
+    } */
+
+    .recent-container,
+    .study-container {
+        padding: 16px;
+    }
+    .study-list {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+    .study-list .card--lg {
+        height: 180px;
+        padding: 16px;
+    }
+    .tag {
+        margin-bottom: 8px;
+    }
+    .pagination {
+        margin-bottom: 20px;
+    }
+    .study-container {
+        margin-bottom: 34px;
+    }
+}

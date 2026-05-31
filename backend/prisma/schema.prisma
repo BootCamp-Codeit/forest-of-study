@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model EMOJI {
+  STUDY_ID Int      @db.UnsignedInt
+  CODE     String   @db.VarChar(50)
+  COUNTING Int?     @default(0)
+  REG_DATE DateTime @default(now()) @db.DateTime(0)
+  STUDY    STUDY    @relation(fields: [STUDY_ID], references: [STUDY_ID], onDelete: Cascade, map: "FK_EMOJI_STUDY")
+
+  @@id([STUDY_ID, CODE])
+  @@index([STUDY_ID], map: "FK_EMOJI_STUDY")
+}
+
+model FOCUS {
+  FOCUS_ID Int       @id @default(autoincrement()) @db.UnsignedInt
+  STUDY_ID Int       @db.UnsignedInt
+  TIME     Int?
+  REG_DATE DateTime  @default(now()) @db.DateTime(0)
+  UPT_TIME DateTime? @default(now()) @db.DateTime(0)
+  STUDY    STUDY     @relation(fields: [STUDY_ID], references: [STUDY_ID], onDelete: Cascade, map: "FK_FOCUS_STUDY")
+
+  @@index([STUDY_ID], map: "FK_FOCUS_STUDY")
+}
+
+model HABIT {
+  HABIT_ID Int       @id @default(autoincrement()) @db.UnsignedInt
+  STUDY_ID Int       @db.UnsignedInt
+  WEEK_NUM Int
+  NAME     String    @db.VarChar(100)
+  MON      Boolean?  @default(false)
+  TUE      Boolean?  @default(false)
+  WED      Boolean?  @default(false)
+  THU      Boolean?  @default(false)
+  FRI      Boolean?  @default(false)
+  SAT      Boolean?  @default(false)
+  SUN      Boolean?  @default(false)
+  REG_DATE DateTime  @default(now()) @db.DateTime(0)
+  UPT_DATE DateTime? @default(now()) @db.DateTime(0)
+  STUDY    STUDY     @relation(fields: [STUDY_ID], references: [STUDY_ID], onDelete: Cascade, onUpdate: NoAction, map: "HABIT_ibfk_1")
+
+  @@index([STUDY_ID], map: "STUDY_ID")
+}
+
+model POINT_HISTORY {
+  POINT_ID Int       @id @default(autoincrement()) @db.UnsignedInt
+  STUDY_ID Int       @db.UnsignedInt
+  POINT    Int       @default(0)
+  REG_DATE DateTime  @default(now()) @db.DateTime(0)
+  UPT_DATE DateTime? @default(now()) @db.DateTime(0)
+  STUDY    STUDY     @relation(fields: [STUDY_ID], references: [STUDY_ID], onDelete: Cascade, map: "FK_POINT_HISTORY_STUDY")
+
+  @@index([STUDY_ID], map: "FK_POINT_HISTORY_STUDY")
+}
+
+model POINT_MASTER {
+  TOTAL_POINT_ID Int   @id @default(autoincrement()) @db.UnsignedInt
+  STUDY_ID       Int   @unique(map: "UQ_POINT_MASTER_STUDY_ID") @db.UnsignedInt
+  TOTAL_POINT    Int   @default(0)
+  STUDY          STUDY @relation(fields: [STUDY_ID], references: [STUDY_ID], onDelete: Cascade, map: "FK_POINT_MASTER")
+}
+
+model STUDY {
+  STUDY_ID      Int             @id @default(autoincrement()) @db.UnsignedInt
+  PASSWORD      String          @db.VarChar(255)
+  NICKNAME      String          @db.VarChar(50)
+  NAME          String          @db.VarChar(100)
+  INTRO         String?         @db.VarChar(500)
+  IMAGE         String?         @db.VarChar(255)
+  REG_DATE      DateTime        @default(now()) @db.DateTime(0)
+  UPT_DATE      DateTime?       @default(now()) @db.DateTime(0)
+  EMOJI         EMOJI[]
+  FOCUS         FOCUS[]
+  HABIT         HABIT[]
+  POINT_HISTORY POINT_HISTORY[]
+  POINT_MASTER  POINT_MASTER?
+}

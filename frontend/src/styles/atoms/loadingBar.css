@@ -1,0 +1,36 @@
+.loading-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 9999;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        #ff9ecb 0%,
+        #b39fff 20%,
+        #8fd8ff 40%,
+        #a8ffda 60%,
+        #fff6a1 80%,
+        #ff9ecb 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    transition: width 0.3s ease-out;
+    transform-origin: left;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}

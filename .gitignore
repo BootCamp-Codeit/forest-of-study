@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+build/
+.vite/
+
+# Env & secrets
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Vercel
+.vercel/
+
+# Prisma (local DB artifacts if any)
+backend/prisma/*.db
+backend/prisma/*.db-journal
