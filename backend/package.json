@@ -9,6 +9,7 @@
     "start": "node src/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
+    "db:seed": "node prisma/seed.js",
     "db:reset": "prisma db push --force-reset && prisma db seed"
   },
   "prisma": {

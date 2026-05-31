@@ -11,10 +11,12 @@ Express + Prisma + MySQL 기반 REST API
 
 | | URL |
 |--|-----|
-| **API Base** | https://beginner-project-be.onrender.com |
-| **Swagger UI** | https://beginner-project-be.onrender.com/api-docs |
-| **Health** | `GET /api/health` (로컬·배포 동일 패턴) |
+| **API Base** | https://forest-of-study-kxj4.onrender.com |
+| **Swagger UI** | https://forest-of-study-kxj4.onrender.com/api-docs |
+| **Health** | https://forest-of-study-kxj4.onrender.com/api/health |
 | **로컬** | http://localhost:3000 |
+
+> 팀 원본 배포: `beginner-project-be.onrender.com` (중단) → 포트폴리오용 **신규 Render** 서비스로 이전.
 
 ---
 
@@ -45,7 +47,7 @@ Express
     ├── services/        ← 비즈니스 규칙 (주차, 포인트, emoji code)
     └── repositories/    ← Prisma 쿼리
             ▼
-        MySQL (Prisma)
+        MySQL 호환 DB (TiDB Cloud / Prisma)
 ```
 
 **대표 흐름 — 스터디 비밀번호 보호**
@@ -67,7 +69,7 @@ Express
 | | |
 |--|--|
 | Runtime | Node.js, Express |
-| ORM | Prisma, MySQL |
+| ORM | Prisma, MySQL 호환 (TiDB Cloud) |
 | Auth | JWT (study scope), bcrypt + **PEPPER** |
 | Docs | Swagger (`/api-docs`) |
 | Log | Winston + Logtail (선택 env) |
@@ -107,31 +109,61 @@ Express
 
 ---
 
-## 6. 실행 방법
+## 6. 실행 · 배포 · 시드
 
-### 환경 변수 (`.env` — `.env.example` 참고)
+### 환경 변수 (`.env.example` 참고)
 
-```env
-DATABASE_URL=mysql://...
-PEPPER_SECRET=...
-JWT_SECRET=...
-CORS_ORIGIN=http://localhost:5173
-LOGTAIL_TOKEN=...          # 선택
-```
+| Key | 필수 | 설명 |
+|-----|------|------|
+| `DATABASE_URL` | ✅ | TiDB/MySQL connection string (`?sslaccept=strict`) |
+| `PEPPER_SECRET` | ✅ | bcrypt pepper — **Render와 seed 시 동일 값** |
+| `JWT_SECRET` | ✅ | study scope JWT 서명 |
+| `JWT_EXPIRES` | | 기본 `1h` |
+| `LOGTAIL_TOKEN` | | Better Stack 로그 (선택) |
 
 ### 로컬
 
 ```bash
 npm install
 npx prisma generate
-# DB 준비 후
+npx prisma db push    # 최초 1회 — 테이블 생성
 npm run dev
 ```
 
 | 명령 | 설명 |
 |------|------|
-| `npm run dev` | 개발 서버 (기본 3000) |
+| `npm run dev` | 개발 서버 (기본 PORT 또는 3000) |
+| `npm run db:seed` | **데모 스터디 100건** 삽입 (기존 데이터 전체 삭제) |
 | Swagger | http://localhost:3000/api-docs |
+
+### Render 배포 (monorepo)
+
+| 항목 | 값 |
+|------|-----|
+| Root Directory | `backend` |
+| Build Command | `npm install && npx prisma generate && npx prisma db push` |
+| Start Command | `npm start` |
+
+### TiDB Cloud 연동
+
+1. [TiDB Cloud Starter](https://tidbcloud.com) (Free) 클러스터 생성  
+2. **Connect** → Public → connection string 복사  
+3. **Security → IP Access** → `0.0.0.0/0`  
+4. Render Environment에 `DATABASE_URL` 등록  
+
+### 데모 계정 (포트폴리오)
+
+`npm run db:seed` 실행 시 **모든 스터디 비밀번호 공통**:
+
+```
+qwert12345!
+```
+
+- bcrypt + `PEPPER_SECRET` 해싱  
+- 포인트·배경·이모지·소개 문구가 다른 **100건** 현실형 시드  
+- 채용 담당자가 수정·습관·집중 등 **비밀번호 보호 UI** 체험 가능  
+
+> ⚠️ `db:seed`는 **전체 데이터 삭제 후 재삽입** — 운영 DB 주의.
 
 ---
 
@@ -144,7 +176,7 @@ npm run dev
 | 비밀번호 | bcrypt + **PEPPER** (env) | DB 유출 시 pepper 없이는 rainbow table 공격 난이도 상승 |
 | Emoji 저장 | **CODE(hex)** 통일 | Unicode/CODE 혼용 시 카운트·조회 불일치 |
 | 포인트 | Prisma **`$transaction`** | HISTORY만 쌓이거나 MASTER만 바뀌는 split 방지 |
-| CORS | `CORS_ORIGIN` env 단일화 | Vite port·Vercel URL 변경 시 코드 수정 최소화 |
+| CORS | `cors()` 기본 허용 | monorepo 재배포 시 FE 도메인 변경에 유연 |
 | 로그 | Logtail (선택) | Render 배포 환경에서 원인 추적 |
 
 ---
@@ -153,10 +185,13 @@ npm run dev
 
 | 증상 | 원인 | 조치 |
 |------|------|------|
-| FE에서 CORS error | Origin 미등록 / port 불일치 | `CORS_ORIGIN`에 `http://localhost:5173` 또는 Vercel URL |
-| Emoji 카운트 안 올라감 | FE unicode vs BE `CODE` 불일치 | FE·BE **hex code** 로 통일 (커밋 2025-12-04) |
+| `STUDY table does not exist` | DB 연결 OK, **스키마 미생성** | Build에 `npx prisma db push` 추가 또는 로컬 실행 |
+| Render DB 연결 실패 | TiDB IP 미허용 | IP Access `0.0.0.0/0` |
+| `PEPPER_SECRET` 에러 | env 누락 | Render Environment 등록 |
+| FE CORS / Network Error | FE가 **중단된 예전 BE** 호출 | Vercel `VITE_API_URL` 갱신 + Redeploy |
+| Emoji 카운트 안 올라감 | FE unicode vs BE `CODE` 불일치 | hex CODE 통일 (2025-12-04) |
 | 목록 페이지 깨짐 | pagination 파라미터 불일치 | Study list API hotfix (2025-12-03) |
-| habit.route merge 충돌 | PR 중 라우트 중복 | habit.route 정리·hotfix (2025-12-01) |
+| habit.route merge 충돌 | PR 중 라우트 중복 | habit.route hotfix (2025-12-01) |
 
 ---
 
@@ -275,13 +310,39 @@ Vercel·Render 데모 배포 및 팀 통합 완료.
 
 ---
 
+### 2026-05 · 포트폴리오 monorepo · 재배포 · 데모 시드
+
+**상황**  
+팀 org FE/BE 분리 repo → 개인 org **monorepo** 이전, Render BE suspended, 홈 데모용 데이터 필요.
+
+**검토**  
+- repo 6개 vs **monorepo 3개** (프로젝트별 FE+BE)  
+- DB: Aiven Free 1개 제한 → **TiDB Cloud Starter** (MySQL 호환, Free)  
+- Render Root Directory `backend` + Build에 **`prisma db push`**
+
+**선택 & 이유**  
+- **BootCamp-Codeit/forest-of-study** — README·배포·이력 한곳 관리  
+- **TiDB + Render** — Render Free에 MySQL 없음, Prisma `mysql` provider 그대로 사용  
+- **`db:seed` 100건** + 비밀번호 `qwert12345!` — 채용 담당자 **체험용** 통일  
+
+**트러블슈팅**  
+- `STUDY table does not exist` → Build에 `db push` 누락  
+- FE CORS/405 → `VITE_API_URL` 예전 URL·미설정 → Render URL + Redeploy  
+
+**결과**  
+- FE: https://forest-of-study-mu.vercel.app  
+- BE: https://forest-of-study-kxj4.onrender.com  
+- Swagger·health·홈 100건 목록 정상  
+
+---
+
 ## 10. 관련 문서
 
 | | 링크 |
 |--|------|
 | monorepo 루트 | [../README.md](../README.md) |
 | Frontend | [../frontend/README.md](../frontend/README.md) |
-| Swagger (운영) | https://beginner-project-be.onrender.com/api-docs |
+| Swagger (운영) | https://forest-of-study-kxj4.onrender.com/api-docs |
 | **팀 org** | [codeit-FS-10th](https://github.com/codeit-FS-10th) |
 | **팀 BE (원본)** | [beginner-project-BE](https://github.com/codeit-FS-10th/beginner-project-BE) |
 | **팀 FE (원본)** | [beginner-project-FE](https://github.com/codeit-FS-10th/beginner-project-FE) |

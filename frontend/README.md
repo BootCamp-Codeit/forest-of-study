@@ -11,11 +11,15 @@ React 19 + Vite 기반 SPA
 
 | | URL |
 |--|-----|
-| **Frontend** | https://beginner-project-fe.vercel.app |
-| **Backend API** | https://beginner-project-be.onrender.com |
-| **Swagger** | https://beginner-project-be.onrender.com/api-docs |
+| **Frontend** | https://forest-of-study-mu.vercel.app |
+| **Backend API** | https://forest-of-study-kxj4.onrender.com |
+| **Swagger** | https://forest-of-study-kxj4.onrender.com/api-docs |
 | **로컬 FE** | http://localhost:5173 |
 | **로컬 BE** | http://localhost:3000 |
+
+### 데모 체험
+
+모든 시드 스터디(100건) **비밀번호 공통**: `qwert12345!`
 
 ---
 
@@ -108,17 +112,29 @@ src/api/
 
 ---
 
-## 6. 실행 방법
+## 6. 실행 · 배포
 
-### 환경 변수 (`.env`)
+### 환경 변수
 
 ```env
 # 로컬
 VITE_API_URL=http://localhost:3000/api
 
-# 배포 (Vercel)
-VITE_API_URL=https://beginner-project-be.onrender.com/api
+# Vercel (Production / Preview)
+VITE_API_URL=https://forest-of-study-kxj4.onrender.com/api
 ```
+
+> `/api`까지 포함. 변경 후 **Redeploy** 필수 (Vite는 빌드 시 env 주입).
+
+### Vercel (monorepo)
+
+| 항목 | 값 |
+|------|-----|
+| Repository | `BootCamp-Codeit/forest-of-study` |
+| **Root Directory** | `frontend` ← repo 루트 `./` 아님 |
+| Framework | Vite |
+| Build | `npm run build` |
+| Output | `dist` |
 
 ### 로컬
 
@@ -127,7 +143,7 @@ npm install
 npm run dev
 ```
 
-BE를 먼저 실행하고, BE `CORS_ORIGIN`에 `http://localhost:5173`을 허용해야 합니다.
+BE를 먼저 실행 (`backend/` — `npm run dev`).
 
 | 명령 | 설명 |
 |------|------|
@@ -169,11 +185,12 @@ Alias: `@pages`, `@api`, `@molecule`, `@utils` (`vite.config.js`)
 
 | 증상 | 원인 | 조치 |
 |------|------|------|
-| CORS error | BE Origin 미등록 | BE `CORS_ORIGIN`에 FE URL 추가 |
-| Emoji 카운트 안 올라감 | unicode vs hex CODE 불일치 | `Emojiservice` 대문자 CODE 전송 (2025-12-04) |
-| Emoji API 404/에러 | `fetch('/api/...')` 상대 경로 | `Emojiservice` + `VITE_API_URL` 사용 |
-| Toast 안 뜸 | import 경로 오류 | Toast 경로 hotfix (2025-12-04) |
-| Study 생성 UI 깨짐 | 배경 그리드·미디어쿼리 | CSS 연속 수정 (2025-12-05~06) |
+| CORS / Network Error | FE가 **예전·중단된 BE** URL 호출 | `VITE_API_URL` → Render URL + **Redeploy** |
+| POST `/studies` **405** | `VITE_API_URL` **미설정** → Vercel 자신에 POST | env 설정 + Redeploy |
+| Network에 `vercel.app/studies` | baseURL undefined | Settings → Environment Variables 확인 |
+| Emoji 카운트 안 올라감 | unicode vs hex CODE | `Emojiservice` 대문자 CODE (2025-12-04) |
+| Toast 안 뜸 | import 경로 오류 | Toast hotfix (2025-12-04) |
+| Study 생성 UI 깨짐 | 배경 그리드·미디어쿼리 | CSS 수정 (2025-12-05~06) |
 
 ---
 
@@ -274,13 +291,36 @@ Vercel 배포·데모 가능 상태.
 
 ---
 
+### 2026-05 · monorepo Vercel 재배포
+
+**상황**  
+팀 FE repo → `BootCamp-Codeit/forest-of-study` monorepo, Vercel Root Directory 설정 필요.
+
+**검토**  
+- Vercel Team(Pro) vs **Hobby** 개인/팀  
+- Root `./` vs **`frontend`**
+
+**선택 & 이유**  
+- Root Directory **`frontend`** — monorepo에서 Vite 빌드 경로 분리  
+- **`VITE_API_URL`** = Render BE `/api` — env는 **Redeploy**해야 빌드 반영  
+
+**트러블슈팅**  
+- 예전 `beginner-project-be` URL → CORS  
+- env 비움 → **405** (Vercel SPA에 POST)  
+- 해결: `https://forest-of-study-kxj4.onrender.com/api` + Redeploy  
+
+**결과**  
+https://forest-of-study-mu.vercel.app 에서 홈·생성·더보기 정상.
+
+---
+
 ## 10. 관련 문서
 
 | | 링크 |
 |--|------|
 | monorepo 루트 | [../README.md](../README.md) |
 | Backend | [../backend/README.md](../backend/README.md) |
-| Swagger (운영) | https://beginner-project-be.onrender.com/api-docs |
+| Swagger (운영) | https://forest-of-study-kxj4.onrender.com/api-docs |
 | **팀 org** | [codeit-FS-10th](https://github.com/codeit-FS-10th) |
 | **팀 FE (원본)** | [beginner-project-FE](https://github.com/codeit-FS-10th/beginner-project-FE) |
 | **팀 BE (원본)** | [beginner-project-BE](https://github.com/codeit-FS-10th/beginner-project-BE) |
@@ -288,7 +328,8 @@ Vercel 배포·데모 가능 상태.
 
 ### 배포 체크리스트
 
-- [ ] Vercel `VITE_API_URL` = `{BE}/api`
-- [ ] BE CORS에 Vercel 도메인
-- [ ] 비밀번호 검증 후 습관·집중·수정 동작
-- [ ] `vercel.json` SPA rewrite
+- [x] Vercel Root Directory = `frontend`
+- [x] `VITE_API_URL` = `https://forest-of-study-kxj4.onrender.com/api`
+- [x] env 변경 후 Redeploy
+- [x] `vercel.json` SPA rewrite
+- [x] BE health / Swagger / 홈 목록 확인
