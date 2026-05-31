@@ -276,9 +276,15 @@ Vercel 배포·데모 가능 상태.
 
 ## 10. 관련 문서
 
-- monorepo 루트: [../README.md](../README.md)  
-- Backend: [../backend/README.md](../backend/README.md)  
-- Swagger: https://beginner-project-be.onrender.com/api-docs  
+| | 링크 |
+|--|------|
+| monorepo 루트 | [../README.md](../README.md) |
+| Backend | [../backend/README.md](../backend/README.md) |
+| Swagger (운영) | https://beginner-project-be.onrender.com/api-docs |
+| **팀 org** | [codeit-FS-10th](https://github.com/codeit-FS-10th) |
+| **팀 FE (원본)** | [beginner-project-FE](https://github.com/codeit-FS-10th/beginner-project-FE) |
+| **팀 BE (원본)** | [beginner-project-BE](https://github.com/codeit-FS-10th/beginner-project-BE) |
+| **포트폴리오 repo** | [BootCamp-Codeit/forest-of-study](https://github.com/BootCamp-Codeit/forest-of-study) |
 
 ### 배포 체크리스트
 

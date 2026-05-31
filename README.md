@@ -52,7 +52,14 @@ npm run dev
 
 ---
 
-## Original Team Repository
+## Repository
 
-- Codeit FS 10기 팀 저장소에서 fork·정리한 개인 포트폴리오 버전입니다.
-- 커밋·개발 리포트는 **본인 작업분** 기준으로 backend/frontend README 하단에 정리했습니다.
+| 구분 | Organization / Repo |
+|------|---------------------|
+| **포트폴리오 (본 repo)** | [BootCamp-Codeit/forest-of-study](https://github.com/BootCamp-Codeit/forest-of-study) — FE+BE monorepo |
+| **팀 org (원본)** | [codeit-FS-10th](https://github.com/codeit-FS-10th) |
+| **팀 FE (분리)** | [beginner-project-FE](https://github.com/codeit-FS-10th/beginner-project-FE) |
+| **팀 BE (분리)** | [beginner-project-BE](https://github.com/codeit-FS-10th/beginner-project-BE) |
+
+Codeit FS 10기 팀 저장소([codeit-FS-10th](https://github.com/codeit-FS-10th))는 FE·BE가 **별도 repo**로 운영되었습니다.  
+본 저장소는 팀 산출물을 monorepo로 정리한 **개인 포트폴리오 fork**이며, 커밋·개발 리포트는 **본인 작업분** 기준으로 `frontend/`·`backend/` README 하단에 정리했습니다.

@@ -277,6 +277,12 @@ Vercel·Render 데모 배포 및 팀 통합 완료.
 
 ## 10. 관련 문서
 
-- monorepo 루트: [../README.md](../README.md)  
-- Frontend: [../frontend/README.md](../frontend/README.md)  
-- Swagger (운영): https://beginner-project-be.onrender.com/api-docs  
+| | 링크 |
+|--|------|
+| monorepo 루트 | [../README.md](../README.md) |
+| Frontend | [../frontend/README.md](../frontend/README.md) |
+| Swagger (운영) | https://beginner-project-be.onrender.com/api-docs |
+| **팀 org** | [codeit-FS-10th](https://github.com/codeit-FS-10th) |
+| **팀 BE (원본)** | [beginner-project-BE](https://github.com/codeit-FS-10th/beginner-project-BE) |
+| **팀 FE (원본)** | [beginner-project-FE](https://github.com/codeit-FS-10th/beginner-project-FE) |
+| **포트폴리오 repo** | [BootCamp-Codeit/forest-of-study](https://github.com/BootCamp-Codeit/forest-of-study) |
