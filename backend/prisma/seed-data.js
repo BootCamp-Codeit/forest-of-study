@@ -159,15 +159,6 @@ export function getSeedStudies() {
     image: BACKGROUNDS[index % BACKGROUNDS.length],
     daysAgo: (index * 3) % 120,
     points: Math.floor((index * 47 + 13) % 480) + 10,
-    emojis:
-      index % 3 === 0
-        ? [
-            EMOJI_POOL[index % EMOJI_POOL.length],
-            EMOJI_POOL[(index + 2) % EMOJI_POOL.length],
-          ]
-        : index % 5 === 0
-          ? [EMOJI_POOL[(index + 1) % EMOJI_POOL.length]]
-          : [],
   }));
 }
 
